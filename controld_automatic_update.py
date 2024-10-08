@@ -1,5 +1,6 @@
 import os
 import requests
+import time
 
 # Load environment variables
 CONTROL_D_API_KEY = os.getenv('CONTROL_D_API_KEY')
