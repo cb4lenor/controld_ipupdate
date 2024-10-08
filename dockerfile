@@ -19,4 +19,5 @@ RUN chown -R appuser:appuser /app
 USER appuser
 
 # Run the Python script
-CMD ["python", "controld_automatic_update.py"]
+CMD ["python", "-u", "controld_automatic_update.py"]
+
