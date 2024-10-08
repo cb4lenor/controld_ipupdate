@@ -1,4 +1,4 @@
-FROM python:alpine3.2
+FROM python:3
 
 # Create a non-root user and group
 RUN groupadd -r appuser && useradd -r -g appuser appuser
