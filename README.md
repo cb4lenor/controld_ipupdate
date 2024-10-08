@@ -1,6 +1,8 @@
 # controld_ipupdate
 automatic update of ip to current ip via controlD API
 
+if IP changes it deletes all ips and adds the new one. Script checks the IPs every 10min.
+
 
 Install in a docker container on a server with the same external WAN IP to automatically update your IP if you can only use legacy DNS.
 
