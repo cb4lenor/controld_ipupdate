@@ -7,6 +7,7 @@ Install in a docker container on a server with the same external WAN IP to autom
 clone the repo
 ```bash
 git clone https://github.com/cb4lenor/controld_ipupdate/
+cd controld_ipupdate
 docker build -t controld_ipupdate .
 docker run -d -e CONTROL_D_API_KEY='yourAPIKeyfromControlD' -e DEVICE_NAME='yourDeviceNameInControlD' controld_ipupdate
 ```
