@@ -50,27 +50,32 @@ def find_device_by_name(devices, name):
     return next((device for device in devices if device['name'] == name), None)
 
 def main():
+    old_ip = None
     while True:
         print("cb4lenor says hi!")
         try:
             current_ip = get_current_ip()
-            print("current_ip: ", current_ip)
-            devices = get_devices()
-            deviceId = find_device_by_name(devices, DEVICE_NAME)["device_id"]
-            print("deviceID: ", deviceId)
-            access_list = get_access_list(deviceId)
-            print("access_list: ", access_list)
-            if not access_list:
-                print("No access list found.")
-                create_entry(current_ip, deviceId)
-                print(f'Updated access list with new IP: {current_ip} for device {DEVICE_NAME}')
-            elif current_ip not in [entry['ip'] for entry in access_list]:
-                print("IP change detected")
-                delete_all_entries(deviceId, access_list)
-                create_entry(current_ip, deviceId)
-                print(f'Updated access list with new IP: {current_ip} for device {DEVICE_NAME}')
+            if old_ip == current_ip:
+                print("No IP change detected.")
             else:
-                print(f'Current IP {current_ip} is already in the access list.')
+                print("current_ip: ", current_ip)
+                devices = get_devices()
+                deviceId = find_device_by_name(devices, DEVICE_NAME)["device_id"]
+                print("deviceID: ", deviceId)
+                access_list = get_access_list(deviceId)
+                print("access_list: ", access_list)
+                if not access_list:
+                    print("No access list found.")
+                    create_entry(current_ip, deviceId)
+                    print(f'Updated access list with new IP: {current_ip} for device {DEVICE_NAME}')
+                elif current_ip not in [entry['ip'] for entry in access_list]:
+                    print("IP change detected")
+                    delete_all_entries(deviceId, access_list)
+                    create_entry(current_ip, deviceId)
+                    print(f'Updated access list with new IP: {current_ip} for device {DEVICE_NAME}')
+                else:
+                    print(f'Current IP {current_ip} is already in the access list.')
+                old_ip = current_ip
         except Exception as e:
             print(f"An error occurred: {e}")
         time.sleep(600)
