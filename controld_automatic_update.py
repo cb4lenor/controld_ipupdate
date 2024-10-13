@@ -31,7 +31,7 @@ def get_devices():
     response.raise_for_status()
     return response.json()["body"]["devices"]
 
-def delete_all_entries(deviceId, ips):
+def delete_ips(deviceId, ips):
     headers = {'Authorization': f'Bearer {CONTROL_D_API_KEY}'}
     payload = {'device_id': deviceId, 'ips': ips} 
     response = requests.delete(f'{CONTROL_D_BASE_URL}/access', headers=headers, payload=payload)
@@ -70,7 +70,7 @@ def main():
                     print(f'Updated access list with new IP: {current_ip} for device {DEVICE_NAME}')
                 elif current_ip not in [entry['ip'] for entry in access_list]:
                     print("IP change detected")
-                    delete_all_entries(deviceId, access_list)
+                    delete_ips(deviceId, [old_ip])
                     create_entry(current_ip, deviceId)
                     print(f'Updated access list with new IP: {current_ip} for device {DEVICE_NAME}')
                 else:
