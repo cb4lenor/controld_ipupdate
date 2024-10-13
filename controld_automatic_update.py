@@ -77,7 +77,7 @@ def main():
                     print(f'Current IP {current_ip} is already in the access list.')
                 old_ip = current_ip
         except Exception as e:
-            print(f"An error occurred: {e}")
+            print(f"An error occurred: {e}. Retrying in 10 minutes.")
         time.sleep(600)
 
 if __name__ == '__main__':
